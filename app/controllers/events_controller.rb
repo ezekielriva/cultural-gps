@@ -4,7 +4,17 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.get_future_events
+    if params[:latitude] and params[:longitude]
+      @places = Place.near([params[:latitude], params[:longitude]])
+      @events = []
+      @places.each do |place|
+        puts ">>>>>>>>>>>> #{place.name}"
+        event = Event.where(place:place)
+        puts ">>>>>>>>>>>> #{event.inspect}"
+        @events << event if event
+      end
+    end
+    @events ||= Event.get_future_events.limit(30)
   end
 
   # GET /events/1
