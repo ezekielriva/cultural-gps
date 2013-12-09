@@ -22,4 +22,13 @@ class Event < ActiveRecord::Base
   def self.get_future_events
     where("start_date >= ?", Date.today).order('start_date ASC')
   end
+
+  def self.find_near(location)
+    events = []
+    places = Place.near(location)
+    places.each do |place|
+      events.push Event.where(place: place)
+    end
+    events
+  end
 end

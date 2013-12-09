@@ -5,16 +5,12 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     if params[:latitude] and params[:longitude]
-      @places = Place.near([params[:latitude], params[:longitude]])
-      @events = []
-      @places.each do |place|
-        puts ">>>>>>>>>>>> #{place.name}"
-        event = Event.where(place:place)
-        puts ">>>>>>>>>>>> #{event.inspect}"
-        @events << event if event
+      @events = Event.find_near([params[:latitude], params[:longitude]]);
+      respond_to do |format|
+        format.json { render json: @events }
       end
     end
-    @events ||= Event.get_future_events.limit(30)
+    @events = Event.get_future_events.limit(30)
   end
 
   # GET /events/1
