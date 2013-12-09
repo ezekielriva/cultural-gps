@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.all
+    @events = Event.get_future_events
   end
 
   # GET /events/1
@@ -69,6 +69,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:name, :start_at, :end_at, :place_id)
+      params.require(:event).permit(:name, :description, :start_date, :end_date, :place_id)
     end
 end
