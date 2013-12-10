@@ -1,6 +1,13 @@
 <h1>Listing events</h1>
 <p>
-  <label><input type="checkbox" id="useCurrentPosition">Use my current position</label>
+  <%= form_tag(root_path, method: "get") do %>
+    <%= hidden_field_tag(:latitude) %>
+    <%= hidden_field_tag(:longitude) %>
+    <label>
+      <%= check_box_tag(:useCurrentPosition, true, @useCurrentPosition, disabled:true) %>
+      Use my current position
+    </label>
+  <% end %>
 </p>
 <table>
   <thead>

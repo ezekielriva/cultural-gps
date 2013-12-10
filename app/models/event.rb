@@ -19,16 +19,22 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def end_date_cannot_be_less_than_start_date
+    if end_date.present? && end_date > start_date
+      errors.add(:end_date, "can't be lower Start Date")
+    end
+  end
+
   def self.get_future_events
     where("start_date >= ?", Date.today).order('start_date ASC')
   end
 
   def self.find_near(location)
-    events = []
-    places = Place.near(location)
-    places.each do |place|
-      events.push Event.where(place: place)
-    end
-    events
+    Place.near(location, 50, order: 'distance').collect do |place|
+      get_future_events.where(place: place).each do |event|
+        event
+      end
+    end.flatten
   end
+
 end

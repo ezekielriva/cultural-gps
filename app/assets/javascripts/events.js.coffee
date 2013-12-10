@@ -1,16 +1,14 @@
-if navigator.geolocation
-  console.log 'Geolocation is supported!'
-else
+if !navigator.geolocation
   console.log 'Geolocation is not supported for this Browser/OS version yet.'
+else
+  navigator.geolocation.getCurrentPosition (position) ->
+    $('#latitude').val position.coords.latitude
+    $('#longitude').val position.coords.longitude
+    $('[type=checkbox]').attr 'disabled', false
 
 $('#useCurrentPosition').on 'click', (e) ->
   if e.target.checked
-    navigator.geolocation.getCurrentPosition (position) ->
-      console.log position.coords.latitude
-      console.log position.coords.longitude
-      ubication =
-        latitude: position.coords.latitude
-        longitude: position.coords.longitude
-      $.getJSON '/events', ubication, (data) ->
-        console.log data
+      $('form').submit()
+  else
+    window.location.href = '/'
 
