@@ -47,9 +47,15 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    database_cleaner (0.9.1)
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.0.2)
+    factory_girl (4.3.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.3.0)
+      factory_girl (~> 4.3.0)
+      railties (>= 3.0.0)
     ffi (1.9.3)
     geocoder (1.1.8)
     hike (1.2.3)
@@ -155,6 +161,8 @@ DEPENDENCIES
   bootstrap-sass-rails
   capybara (= 2.1.0)
   coffee-rails (>= 4.0.1)
+  database_cleaner
+  factory_girl_rails
   geocoder
   jquery-rails (>= 3.0.4)
   pg (>= 0.15.1)

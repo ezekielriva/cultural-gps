@@ -8,21 +8,18 @@ class Event < ActiveRecord::Base
            :start_date_cannot_be_in_the_past
 
   def end_date_cannot_be_in_the_past
-    if end_date.present? && end_date < Date.today
-      errors.add(:end_date, "can't be in the past")
-    end
+    return unless end_date.present? && end_date < Date.today
+    errors.add(:end_date, "can't be in the past")
   end
 
   def start_date_cannot_be_in_the_past
-    if start_date.present? && start_date < Date.today
-      errors.add(:start_date, "can't be in the past")
-    end
+    return unless start_date.present? && start_date < Date.today
+    errors.add(:start_date, "can't be in the past")
   end
 
   def end_date_cannot_be_less_than_start_date
-    if end_date.present? && end_date > start_date
-      errors.add(:end_date, "can't be lower Start Date")
-    end
+    return unless end_date.present? && end_date > start_date
+    errors.add(:end_date, "can't be lower Start Date")
   end
 
   def self.get_future_events

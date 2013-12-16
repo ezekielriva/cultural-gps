@@ -16,6 +16,8 @@ gem 'turbolinks', '>= 1.1.1'
 gem 'rabl'
 gem 'bcrypt-ruby', '3.1.2'
 gem "geocoder"
+gem "factory_girl_rails"
+gem "database_cleaner"
 
 group :doc do
   gem 'sdoc', '>= 0.3.20', require: false
