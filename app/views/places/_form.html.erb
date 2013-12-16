@@ -16,12 +16,16 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
+    <%= f.label :location %><br>
+    <%= f.text_field :location, "data-geocomplete"=>"" %>
+  </div>
+  <div class="field">
     <%= f.label :latitude %><br>
-    <%= f.text_field :latitude %>
+    <%= f.text_field :latitude, "data-geo"=>"lat" %>
   </div>
   <div class="field">
     <%= f.label :longitude %><br>
-    <%= f.text_field :longitude %>
+    <%= f.text_field :longitude, "data-geo"=>"lng" %>
   </div>
   <div class="field">
     <%= f.label :description %><br>
@@ -30,4 +34,6 @@
   <div class="actions">
     <%= f.submit %>
   </div>
+
+  <div id="map-canvas"></div>
 <% end %>

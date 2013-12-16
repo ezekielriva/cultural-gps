@@ -11,5 +11,6 @@
 // about supported directives.
 //
 //= require vendors/jquery-2.0.3.min
+//= require vendors/jquery.geocomplete.min
 //= require turbolinks
 //= require_tree .

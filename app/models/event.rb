@@ -23,11 +23,20 @@ class Event < ActiveRecord::Base
   end
 
   def self.get_future_events
-    where("start_date >= ?", Date.today).order('start_date ASC')
+    where("start_date >= ?", Date.today).until_date.order('start_date ASC')
+      #
+  end
+
+  def self.start_until_tomorrow
+    where("start_date <= ?", Date.today + 1.days)
+  end
+
+  def self.until_date(date = Date.today.at_end_of_quarter)
+    where("end_date <= ?", date)
   end
 
   def self.find_near(location)
-    Place.near(location, 50, order: 'distance').collect do |place|
+    Place.near(location, 15, :units => :km, order: 'distance').collect do |place|
       get_future_events.where(place: place).each do |event|
         event
       end
