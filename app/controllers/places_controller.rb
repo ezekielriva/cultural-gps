@@ -1,5 +1,6 @@
 class PlacesController < ApplicationController
   before_action :set_place, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_admin!, :except => [:index, :show]
 
   # GET /places
   # GET /places.json

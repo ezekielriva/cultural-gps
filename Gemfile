@@ -18,6 +18,7 @@ gem 'bcrypt-ruby', '3.1.2'
 gem "geocoder"
 gem "factory_girl_rails"
 gem "database_cleaner"
+gem 'devise'
 
 group :doc do
   gem 'sdoc', '>= 0.3.20', require: false

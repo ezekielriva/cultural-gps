@@ -8,8 +8,6 @@
       <th>Longitude</th>
       <th>Description</th>
       <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -20,9 +18,13 @@
         <td><%= place.latitude %></td>
         <td><%= place.longitude %></td>
         <td><%= place.description %></td>
-        <td><%= link_to 'Show', place %></td>
-        <td><%= link_to 'Edit', edit_place_path(place) %></td>
-        <td><%= link_to 'Destroy', place, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to 'Show', place %>
+          <% if current_user %>
+            <%= link_to 'Edit', edit_place_path(place) %>
+            <%= link_to 'Destroy', place, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +32,6 @@
 
 <br>
 
-<%= link_to 'New Place', new_place_path %>
+<% if current_user %>
+  <%= link_to 'New Place', new_place_path %>
+<% end %>
