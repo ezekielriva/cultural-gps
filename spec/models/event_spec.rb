@@ -12,6 +12,8 @@ describe Event do
   it { should respond_to :description }
   it { should respond_to :start_date }
   it { should respond_to :end_date }
+  it { should respond_to :bearing }
+  it { should respond_to :distance }
 
   describe "end date should not be in the past" do
     before { @event.end_date = @event.start_date.change(year: 1900) }
@@ -28,21 +30,36 @@ describe Event do
 
 
     it "should return only future events" do
-      # Six because we should count extra entry by beginning before statment
       @events.should_not include @old
     end
 
     it "should be order by start_date" do
       @events.first.start_date.should be <= @events.last.start_date
     end
+
+    it "should be less than end of date or quarter" do
+      @old.start_date = Date.today
+      @old.end_date = Date.today.at_end_of_quarter + 1.days
+      @old.save!
+      @events = Event.until_date()
+      @events.should_not include @old
+    end
   end
 
   describe "Near events" do
+    before do
+      @places = create_list :place, 2
+      @places.cycle(2) {|place| create :event, place: place }
+
+      @places.first.latitude = 20
+      @places.first.longitude = 20
+      @places.first.save!
+
+      @location = [20.0, 20.0]
+    end
     it "should be return only near events" do
-      places = create_list :place, 2
-      places.cycle(4) {|place| create :event, :place => place }
-      events = Event.find_near([100,100])
-      events.length.should be == 1
+      Place.count.should be >= @places.length
+      Event.find_near(@location).should include @places.first.events.first
     end
   end
 
