@@ -1,11 +1,16 @@
-# require 'spec_helper'
+require 'spec_helper'
 
-# describe "Events" do
-#   describe "GET /events" do
-#     it "works! (now write some real specs)" do
-#       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-#       get events_path
-#       response.status.should be(200)
-#     end
-#   end
-# end
+describe "Events" do
+
+  describe "when list them" do
+    before { @events = create_list :event, 31 }
+    it "should response a lot of events" do
+      get events_path
+      expect(response).to render_template(:index)
+
+      expect( assigns(:events).count ).to eql(30)
+    end
+
+  end
+
+end
