@@ -1,49 +1,58 @@
-<h1>Listing events</h1>
-<p>
-  <%= form_tag(root_path, method: "get") do %>
-    <%= hidden_field_tag(:latitude) %>
-    <%= hidden_field_tag(:longitude) %>
-    <label>
-      <%= check_box_tag(:useCurrentPosition, true, @useCurrentPosition, disabled:true) %>
-      Use my current position
-    </label>
-  <% end %>
-</p>
-<table>
-  <thead>
-    <tr>
-      <th>Event</th>
-      <th>Place</th>
-      <th>When?</th>
-      <th></th>
-    </tr>
-  </thead>
+<div class="row">
+  <div class="col-sm-12 col-xs-12 col-md-12">
+    <h1>Listing events</h1>
+    <p>
+      <%= form_tag(root_path, method: "get") do %>
+        <%= hidden_field_tag(:latitude) %>
+        <%= hidden_field_tag(:longitude) %>
+        <%= check_box_tag(:useCurrentPosition, true, @useCurrentPosition) %>
+        <button id="useCurrentPosition_button" class="btn btn-primary btn-lg btn-block <%= 'active' if @useCurrentPosition %>" disabled>
+          Use my current position
+        </button>
+      <% end %>
+    </p>
+    <!-- <div class="table-responsive"> -->
+      <table class="table table-condensed table-striped" id="event-table">
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Place</th>
+            <th>When?</th>
+            <% if current_user %>
+              <th></th>
+            <% end %>
+          </tr>
+        </thead>
 
-  <tbody>
-    <% @events.each do |event| %>
-      <tr>
-        <td><%= event.name %></td>
-        <td>
-          <%= event.place.name %> <br>
-          <% if @useCurrentPosition %>
-            <%= place_distance(event) %>
+        <tbody>
+          <% @events.each do |event| %>
+            <tr data-link="<%= url_for event_path(event) %>">
+              <td><%= event.name %></td>
+              <td>
+                <%= event.place.name %> <br>
+                <% if @useCurrentPosition %>
+                  <%= place_distance(event) %>
+                <% end %>
+              </td>
+              <td><%= get_event_time event.start_date %></td>
+              <% if current_user %>
+                <td>
+                    <%= link_to 'Show', event %>
+                    <%= link_to 'Edit', edit_event_path(event) %>
+                    <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %>
+                </td>
+              <% end %>
+            </tr>
           <% end %>
-        </td>
-        <td><%= get_event_time event.start_date %></td>
-        <td>
-          <%= link_to 'Show', event %>
-          <% if current_user %>
-            <%= link_to 'Edit', edit_event_path(event) %>
-            <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %>
-          <% end %>
-        </td>
-      </tr>
+        </tbody>
+      </table>
+    <!-- </div> -->
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12 col-xs-12 col-md-12">
+    <% if isLogged? %>
+      <%= link_to 'New Event', new_event_path, class: "btn btn-primary" %>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<% if isLogged? %>
-  <%= link_to 'New Event', new_event_path %>
-<% end %>
+  </div>
+</div>

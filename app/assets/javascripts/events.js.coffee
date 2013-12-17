@@ -4,11 +4,16 @@ else
   navigator.geolocation.getCurrentPosition (position) ->
     $('#latitude').val position.coords.latitude
     $('#longitude').val position.coords.longitude
-    $('[type=checkbox]').attr 'disabled', false
+    $('#useCurrentPosition_button').attr 'disabled', false
 
-$('#useCurrentPosition').on 'click', (e) ->
-  if e.target.checked
+$('#useCurrentPosition_button').on 'click', (e) ->
+  e.preventDefault();
+  $check = $('#useCurrentPosition');
+  $check.attr 'checked', !$check.is(':checked')
+  if $check.is(':checked')
       $('form').submit()
   else
     window.location.href = '/'
 
+$('#event-table tr').on 'click', (e) ->
+  window.location.href = this.dataset.link
