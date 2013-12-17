@@ -23,7 +23,12 @@
     <% @events.each do |event| %>
       <tr>
         <td><%= event.name %></td>
-        <td><%= event.place.name %></td>
+        <td>
+          <%= event.place.name %> <br>
+          <% if @useCurrentPosition %>
+            <%= place_distance(event) %>
+          <% end %>
+        </td>
         <td><%= get_event_time event.start_date %></td>
         <td>
           <%= link_to 'Show', event %>

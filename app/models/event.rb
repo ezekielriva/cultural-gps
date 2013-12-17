@@ -7,6 +7,8 @@ class Event < ActiveRecord::Base
   validate :end_date_cannot_be_in_the_past,
            :start_date_cannot_be_in_the_past
 
+  attr_accessor :bearing, :distance
+
   def end_date_cannot_be_in_the_past
     return unless end_date.present? && end_date < Date.today
     errors.add(:end_date, "can't be in the past")
@@ -24,7 +26,6 @@ class Event < ActiveRecord::Base
 
   def self.get_future_events
     where("start_date >= ?", Date.today).until_date.order('start_date ASC')
-      #
   end
 
   def self.start_until_tomorrow
@@ -38,6 +39,8 @@ class Event < ActiveRecord::Base
   def self.find_near(location)
     Place.near(location, 15, :units => :km, order: 'distance').collect do |place|
       get_future_events.where(place: place).each do |event|
+        event.bearing = place.bearing
+        event.distance = place.distance
         event
       end
     end.flatten
