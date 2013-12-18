@@ -1,15 +1,13 @@
 <p id="notice"><%= notice %></p>
 
+<h2><%= @event.name %></h2>
 <p>
-  <strong>Name:</strong>
-  <%= @event.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
   <%= @event.description %>
 </p>
-
+<address>
+  <strong><%= @event.place.name %></strong> <br>
+  <%= @event.place.location %>
+</address>
 <p>
   <strong>Start at:</strong>
   <%= @event.start_date %>
@@ -20,14 +18,11 @@
   <%= @event.end_date %>
 </p>
 
-<p>
-  <strong>Place:</strong>
-  <%= @event.place.name %>
-</p>
-
-<%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@event.place.latitude}%2C#{@event.place.longitude}" %>
+<div id="map-image" data-latitude="<%= @event.place.latitude %>" data-longitude="<%= @event.place.longitude %>" data-size="">
+  <img src="" alt="">
+</div> <br> <br>
 
 <% if isLogged? %>
-  <%= link_to 'Edit', edit_event_path(@event) %> |
+  <%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-default' %>
 <% end %>
-<%= link_to 'Back', events_path %>
+<%= link_to 'Back', events_path, class: 'btn btn-default' %>

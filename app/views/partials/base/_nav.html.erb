@@ -1,0 +1,16 @@
+<nav class="navbar navbar-default" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <%= link_to 'Cultural GPS', root_path, class: 'navbar-brand' %>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-inverse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav navbar-right">
+      <% if isLogged? %>
+        <li class="navbar-text">Signed in as <%= current_admin.email %></li>
+        <li><%= link_to 'Sign out', destroy_admin_session_path, remote:true, method: :delete %></li>
+      <% end %>
+    </ul>
+  </div>
+</nav>

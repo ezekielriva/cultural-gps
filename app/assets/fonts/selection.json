@@ -1,0 +1,60 @@
+{
+	"IcoMoonType": "selection",
+	"icons": [
+		{
+			"icon": {
+				"paths": [
+					"M512.002 0l-512.002 512h320v511.998l384 0.002v-512h320z"
+				],
+				"tags": [
+					"arrow-up",
+					"upload",
+					"top"
+				],
+				"grid": 16
+			},
+			"properties": {
+				"order": 1,
+				"id": 289,
+				"prevSize": 32,
+				"code": 58880,
+				"name": "arrow-up",
+				"ligatures": ""
+			}
+		}
+	],
+	"height": 1024,
+	"metadata": {},
+	"preferences": {
+		"fontPref": {
+			"prefix": "icon-",
+			"metadata": {},
+			"showGlyphs": true,
+			"metrics": {
+				"emSize": 1024,
+				"baseline": 6.25,
+				"whitespace": 50
+			},
+			"resetPoint": 58880,
+			"showQuickUse": true,
+			"quickUsageToken": false,
+			"showMetrics": true,
+			"showMetadata": false
+		},
+		"imagePref": {
+			"color": 0,
+			"height": 32,
+			"columns": 16,
+			"margin": 16,
+			"png": false,
+			"sprites": true
+		},
+		"historySize": 100,
+		"showCodes": true,
+		"gridSize": 16,
+		"showLiga": false,
+		"showGrid": true,
+		"showGlyphs": true,
+		"showQuickUse": true
+	}
+}

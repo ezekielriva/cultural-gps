@@ -8,9 +8,7 @@
 </head>
 <body>
 
-<% if isLogged? %>
-  <%= link_to 'Sign out', destroy_admin_session_path, method: :delete %>
-<% end %>
+<%= render 'partials/base/nav' %>
 
 <div class="container">
   <%= yield %>
