@@ -9,6 +9,8 @@ class Event < ActiveRecord::Base
 
   attr_accessor :bearing, :distance
 
+  scope :by_start_date, -> { order(:start_date) }
+
   def end_date_cannot_be_in_the_past
     return unless end_date.present? && end_date < Date.today
     errors.add(:end_date, "can't be in the past")
@@ -38,10 +40,11 @@ class Event < ActiveRecord::Base
 
   def self.find_near(location)
     Place.near(location, 15, :units => :km, order: 'distance').collect do |place|
-      get_future_events.where(place: place).each do |event|
-        event.bearing = place.bearing
-        event.distance = place.distance
-        event
+      get_future_events.where(place: place).start_until_tomorrow.
+        by_start_date.each do |event|
+          event.bearing = place.bearing
+          event.distance = place.distance
+          event
       end
     end.flatten
   end
