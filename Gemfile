@@ -18,6 +18,7 @@ gem "geocoder"
 gem "factory_girl_rails"
 gem "database_cleaner"
 gem 'devise'
+gem 'has_scope'
 
 group :doc do
   gem 'sdoc', '>= 0.3.20', require: false

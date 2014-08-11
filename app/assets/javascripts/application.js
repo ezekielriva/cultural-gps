@@ -12,6 +12,5 @@
 //
 //= require vendors/jquery-2.0.3.min
 //= require vendors/jquery.geocomplete.min
-//= require vendors/jquery.ddslick.min
-//= require turbolinks
+//= require select2.min
 //= require_tree .

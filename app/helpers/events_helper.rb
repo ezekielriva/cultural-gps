@@ -16,11 +16,16 @@ module EventsHelper
 
   def place_distance(event)
     distance = number_to_human(event.distance, units: {centi: "m", unit: "km", thousand: "km"})
-    direction = place_direction(event.bearing)
-    "#{distance} - #{direction}"
   end
 
   def place_direction(bearing)
     Geocoder::Calculations.compass_point( bearing )
+  end
+
+  def place_direction_class(bearing)
+    case place_direction(bearing)
+    when 'N'; 'icon-arrow-up'
+    when 'S'; 'icon-arrow-down'
+    end
   end
 end

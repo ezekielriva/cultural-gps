@@ -24,3 +24,15 @@ $map_image.data('size', '340x200')
 $map_image.find('img').attr('src',
   "http://maps.google.com/maps/api/staticmap?size="+$map_image.data('size')+"&sensor=false&zoom=16&markers="+ $map_image.data('latitude')+"%2C"+ $map_image.data('longitude')
   )
+
+$('#event_place_id').select2
+  placeholder: "Search event place"
+  ajax:
+    url: () ->
+      this.data('url')
+    data: (term, page) ->
+      q: term
+    results: (data, page) ->
+      results: data.map (el) ->
+        id: el.id
+        text: el.name

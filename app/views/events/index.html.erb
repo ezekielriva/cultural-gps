@@ -4,60 +4,61 @@
       <%= hidden_field_tag(:latitude) %>
       <%= hidden_field_tag(:longitude) %>
       <%= check_box_tag(:useCurrentPosition, true, @useCurrentPosition) %>
-      <button id="useCurrentPosition_button" class="btn btn-primary btn-lg btn-block <%= 'active' if @useCurrentPosition %>" disabled>
-        Use my current position
-      </button>
     <% end %>
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Upcoming events</h3>
+        <h3>
+          Upcoming events
+          <% if current_admin %>
+            <%= link_to 'New Event', new_event_path, class: "btn btn-primary pull-right" %>
+          <% end %>
+          <button id="useCurrentPosition_button" class="btn btn-success pull-right <%= 'active' if @useCurrentPosition %>" disabled>
+            Use my position &nbsp;
+            <i class="icon-compass"></i>
+          </button>
+        </h3>
       </div>
       <div class="panel-body">
-        <% if @events.any? %>
-          <table class="table table-condensed table-striped" id="event-table">
-            <thead>
-              <tr>
-                <th></th>
+        <p>
+          All upcoming events show here, also they displays its information:
+          event name, location in black label and time
+        </p>
+        <p>
+          If you use your current position <strong>(green button)</strong>, the
+          app show you the direction to event <strong>(N, S, E, W)</strong>
+        </p>
+      </div>
+      <% if @events.any? %>
+        <table class="table table-condensed table-striped" id="event-table">
+          <tbody>
+            <% @events.each do |event| %>
+              <tr data-link="<%= url_for event_path(event) %>">
+                <td>
+                  <%= event.name %> <br>
+                  <strong>
+                    <i class="icon-location"></i>
+                    <%= event.place.name %>
+                  </strong>
+                  <% if @useCurrentPosition %>
+                    : <%= place_distance(event) %> :
+                    <i class="<%= place_direction_class event.bearing %>"></i>
+                  <% end %> <br>
+                  <%= get_event_time event.start_date %>
+                </td>
                 <% if current_user %>
-                  <th></th>
+                  <td>
+                      <%= link_to 'Edit', edit_event_path(event) %>
+                      <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %>
+                  </td>
                 <% end %>
               </tr>
-            </thead>
-
-            <tbody>
-              <% @events.each do |event| %>
-                <tr data-link="<%= url_for event_path(event) %>">
-                  <td>
-                    <%= event.name %> <br>
-                    <strong><%= event.place.name %></strong>
-                    <% if @useCurrentPosition %>
-                      : <%= place_distance(event) %>
-                    <% end %> <br>
-                    <%= get_event_time event.start_date %>
-                  </td>
-                  <% if current_user %>
-                    <td>
-                        <%= link_to 'Edit', edit_event_path(event) %>
-                        <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %>
-                    </td>
-                  <% end %>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        <% else %>
-          <div class="alert alert-info">Not upcoming events yet. Try later</div>
-        <% end %>
-      </div>
-    </div>
-
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <div class="alert alert-info">Not upcoming events yet. Try later</div>
+      <% end %>
   </div>
-</div>
 
-<div class="row">
-  <div class="col-sm-12 col-xs-12 col-md-12">
-    <% if isLogged? %>
-      <%= link_to 'New Event', new_event_path, class: "btn btn-primary" %>
-    <% end %>
   </div>
 </div>

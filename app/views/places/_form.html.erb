@@ -11,29 +11,29 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: 'form-control' %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :location %><br>
-    <%= f.text_field :location, "data-geocomplete"=>"" %>
+    <%= f.text_field :location, "data-geocomplete"=>"", class: 'form-control' %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :latitude %><br>
-    <%= f.text_field :latitude, "data-geo"=>"lat" %>
+    <%= f.text_field :latitude, "data-geo"=>"lat", class: 'form-control' %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :longitude %><br>
-    <%= f.text_field :longitude, "data-geo"=>"lng" %>
+    <%= f.text_field :longitude, "data-geo"=>"lng", class: 'form-control' %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :description %><br>
-    <%= f.text_field :description %>
+    <%= f.text_area :description, class: 'form-control' %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="from-group">
+    <%= f.submit class: 'btn btn-primary' %>
   </div>
-
+  <br>
   <div id="map-canvas"></div>
 <% end %>

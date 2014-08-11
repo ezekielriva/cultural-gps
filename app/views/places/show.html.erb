@@ -1,24 +1,29 @@
-<p id="notice"><%= notice %></p>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div id="map-image" data-size="300px" data-latitude="<%= @place.latitude %>"
+         data-longitude="<%= @place.longitude %>">
+      <img src="" alt="<%= @place.name %>" class="pull-right">
+    </div>
+    <p>
+      <strong>Name:</strong>
+      <%= @place.name %>
+    </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @place.name %>
-</p>
+    <p>
+      <strong>Location</strong>
+      <%= @place.location %>
+    </p>
 
-<p>
-  <strong>Latitude:</strong>
-  <%= @place.latitude %>
-</p>
+    <p>
+      <strong>Description:</strong>
+      <%= @place.description %>
+    </p>
+  </div>
+  <br>
+  <div class="panel-footer">
+    <%= link_to 'Edit', edit_place_path(@place), class: 'btn btn-default' %>
+    <%= link_to 'Back', places_path, class: 'btn btn-default' %>
+  </div>
+</div>
 
-<p>
-  <strong>Longitude:</strong>
-  <%= @place.longitude %>
-</p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @place.description %>
-</p>
-
-<%= link_to 'Edit', edit_place_path(@place) %> |
-<%= link_to 'Back', places_path %>

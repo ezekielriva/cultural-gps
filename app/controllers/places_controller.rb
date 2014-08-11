@@ -2,28 +2,26 @@ class PlacesController < ApplicationController
   before_action :set_place, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_admin!, :except => [:index, :show]
 
-  # GET /places
-  # GET /places.json
+  has_scope :search_name, as: :q
+
   def index
-    @places = Place.all
+    @places = apply_scopes(Place).all
+    respond_to do |format|
+      format.html
+      format.json { render json: @places }
+    end
   end
 
-  # GET /places/1
-  # GET /places/1.json
   def show
   end
 
-  # GET /places/new
   def new
     @place = Place.new
   end
 
-  # GET /places/1/edit
   def edit
   end
 
-  # POST /places
-  # POST /places.json
   def create
     @place = Place.new(place_params)
 
