@@ -36,3 +36,7 @@ $('#event_place_id').select2
       results: data.map (el) ->
         id: el.id
         text: el.name
+  initSelection: (el, callback) ->
+    callback
+      id: el.val()
+      text: el.data('value')

@@ -32,23 +32,27 @@
         <table class="table table-condensed table-striped" id="event-table">
           <tbody>
             <% @events.each do |event| %>
-              <tr data-link="<%= url_for event_path(event) %>">
+              <tr data-link="<%= event_url(event) %>">
                 <td>
-                  <%= event.name %> <br>
+                  <h4><%= event.name %></h4>
                   <strong>
-                    <i class="icon-location"></i>
-                    <%= event.place.name %>
-                  </strong>
-                  <% if @useCurrentPosition %>
-                    : <%= place_distance(event) %> :
-                    <i class="<%= place_direction_class event.bearing %>"></i>
-                  <% end %> <br>
-                  <%= get_event_time event.start_date %>
+                    <i class="icon-location"></i> <%= event.place.name %>
+                  </strong> <br>
+                  <span>
+                    <i class="icon-calendar"></i>
+                    <%= get_event_time(event.start_date) ? get_event_time(event.start_date) : get_event_date(event.start_date) %>
+                  </span>
                 </td>
-                <% if current_user %>
-                  <td>
-                      <%= link_to 'Edit', edit_event_path(event) %>
-                      <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %>
+                <% if @useCurrentPosition %>
+                  <td class="location-distance"><%= place_distance(event) %></td>
+                  <td class="arrow-direction">
+                    <i class="<%= place_direction_class event.bearing %>"></i>
+                  </td>
+                <% end %>
+                <% if current_admin %>
+                  <td class="actions">
+                      <%= link_to 'Edit', edit_event_path(event), class: 'btn btn-default' %>
+                      <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %>
                   </td>
                 <% end %>
               </tr>

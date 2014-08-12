@@ -3,7 +3,11 @@ module EventsHelper
     return nil if date.nil?
     return get_event_hour(date) if date.today?
     return time_ago_in_words(date) if DateTime.now + 24.hour <= date
-    date
+    nil
+  end
+
+  def get_event_date(date)
+    date.strftime('%d-%m-%Y')
   end
 
   def get_hour(time)

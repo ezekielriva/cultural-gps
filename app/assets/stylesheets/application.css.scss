@@ -52,6 +52,12 @@
 .icon-compass:before {
   content: "\e602";
 }
+.icon-clock:before {
+  content: "\e60b";
+}
+.icon-calendar:before {
+  content: "\e60c";
+}
 .icon-arrow-up-left:before {
   content: "\e603";
 }
@@ -75,4 +81,18 @@
 }
 .icon-arrow-left:before {
   content: "\e60a";
+}
+
+.table > tbody > tr > td {
+  &.actions {
+    vertical-align: middle;
+    text-align: right;
+  }
+
+  &.arrow-direction,
+  &.location-distance {
+    vertical-align: middle;
+    text-align: center;
+    font-size: 18px;
+  }
 }
