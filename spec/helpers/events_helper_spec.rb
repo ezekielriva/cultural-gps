@@ -43,4 +43,22 @@ describe EventsHelper do
     it { expect(helper.normalize_distance @kilometers ).to eql "1 km" }
     it { expect(helper.normalize_distance @meters ).to eql "100 m" }
   end
+
+  describe "#get_event_hour" do
+    it { expect(helper.get_event_hour Time.now).to eql "today at #{Time.now.strftime('%H:%M')}" }
+  end
+
+  describe "#get_hour" do
+    it { expect(helper.get_hour Time.now).to eql Time.now.strftime('%H:%M') }
+  end
+
+  describe "#get_event_date" do
+    it { expect(helper.get_event_date Date.today ).to eql Date.today.strftime('%d-%m-%Y') }
+  end
+
+  describe "#get_event_time" do
+    it { expect(helper.get_event_time nil ).to eql nil }
+    it { expect(helper.get_event_time Date.today ).to include 'today at' }
+    it { expect(helper.get_event_time Date.today + 30.days ).to include 'days' }
+  end
 end
