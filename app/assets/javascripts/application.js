@@ -9,8 +9,9 @@
 //
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
-//
-//= require vendors/jquery-2.0.3.min
+
+//= require jquery
+//= require jquery_ujs
 //= require vendors/jquery.geocomplete.min
 //= require select2.min
 //= require_tree .

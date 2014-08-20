@@ -12,17 +12,15 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><%= link_to 'Places', places_path %></li>
+        <li class="<%= is_active? 'places' %>"><%= link_to 'Places', places_path %></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
         <% if current_admin %>
           <li class="navbar-text">Signed in as <%= current_admin.email %></li>
-          <li><%= link_to 'Sign out', destroy_admin_session_path, remote:true, method: :delete %></li>
+          <li><%= link_to 'Sign out', destroy_admin_session_path, method: :delete %></li>
         <% else %>
-          <li>
-            <%= link_to 'Sign in', admin_session_path %>
-          </li>
+          <li><%= link_to 'Sign in', admin_session_path %></li>
         <% end %>
       </ul>
     </div>
