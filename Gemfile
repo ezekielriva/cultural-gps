@@ -2,10 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '>= 4.0.1'
 
-group :development do
-  gem 'rspec-rails', '2.13.1'
-end
-
 gem 'sass-rails', '>= 4.0.1'
 gem 'bootstrap-sass-rails'
 gem 'uglifier', '>= 2.1.1'
@@ -15,7 +11,6 @@ gem 'turbolinks', '>= 1.1.1'
 gem 'rabl'
 gem 'bcrypt-ruby', '3.1.2'
 gem "geocoder"
-gem "factory_girl_rails"
 gem "database_cleaner"
 gem 'devise'
 gem 'has_scope'
@@ -29,8 +24,15 @@ group :production do
   gem 'pg', '>= 0.15.1'
 end
 
+group :test, :development do
+  gem 'dotenv-rails'
+end
+
 group :test do
-  gem 'selenium-webdriver', '2.35.1'
-  gem 'capybara', '2.1.0'
+  gem 'rspec-rails', '2.13.1'
+  gem "minitest"
   gem 'faker'
+  gem 'factory_girl_rails'
+  gem 'simplecov'
+  gem "codeclimate-test-reporter", require: nil
 end

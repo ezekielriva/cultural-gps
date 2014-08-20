@@ -18,8 +18,8 @@ module EventsHelper
     "today at #{get_hour(time)}"
   end
 
-  def place_distance(bearing)
-    distance = number_to_human(bearing, units: {centi: "m", unit: "km", thousand: "km"})
+  def normalize_distance(bearing)
+    distance = number_to_human(bearing, units: {centi: "cm", unit: "m", thousand: "km"})
   end
 
   def place_direction(bearing)

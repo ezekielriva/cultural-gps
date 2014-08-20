@@ -45,7 +45,7 @@
                   </p>
                 </td>
                 <% if @useCurrentPosition %>
-                  <td class="location-distance"><%= place_distance event.get_distance(@location) %></td>
+                  <td class="location-distance"><%= normalize_distance event.get_distance(@location) %></td>
                   <td class="arrow-direction">
                     <i class="<%= place_direction_class event.get_bearings(@location) %>"></i>
                   </td>
