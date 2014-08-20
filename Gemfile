@@ -14,6 +14,7 @@ gem "geocoder"
 gem "database_cleaner"
 gem 'devise'
 gem 'has_scope'
+gem 'decent_exposure'
 
 group :doc do
   gem 'sdoc', '>= 0.3.20', require: false
