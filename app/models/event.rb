@@ -9,7 +9,12 @@ class Event < ActiveRecord::Base
 
   attr_accessor :bearing, :distance
 
-  scope :by_start_date, -> { order(:start_date) }
+  scope :order_by_start_date, -> (order = 'ASC') { order("events.start_date #{order}") }
+  scope :doesnt_end, -> () { where('events.end_date >= ?', Time.zone.now) }
+  scope :until_date, -> (date = Time.zone.now.at_end_of_quarter) {
+    where("events.end_date <= ?", date)
+  }
+  scope :get_future_events, -> () { doesnt_end.until_date.order_by_start_date }
 
   def end_date_cannot_be_in_the_past
     return unless end_date.present? && end_date < Date.today
@@ -26,27 +31,16 @@ class Event < ActiveRecord::Base
     errors.add(:end_date, "can't be lower Start Date")
   end
 
-  def self.get_future_events
-    where("start_date >= ?", Date.today).until_date.order('start_date ASC')
-  end
-
   def self.start_until_tomorrow
     where("start_date <= ?", Date.today + 1.days)
   end
 
-  def self.until_date(date = Date.today.at_end_of_quarter)
-    where("end_date <= ?", date)
+  def get_bearings(location)
+    place.bearing_to(location) if place.geocoded?
   end
 
-  def self.find_near(location)
-    Place.near(location, 15, :units => :km, order: 'distance').collect do |place|
-      get_future_events.where(place: place).start_until_tomorrow.
-        by_start_date.each do |event|
-          event.bearing = place.bearing
-          event.distance = place.distance
-          event
-      end
-    end.flatten
+  def get_distance(location)
+    place.distance_to(location) if place.geocoded?
   end
 
 end

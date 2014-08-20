@@ -20,11 +20,11 @@
       </div>
       <div class="panel-body">
         <p>
-          All upcoming events show here, also they displays its information:
+          All upcoming events are displayed here, also they displays:
           event name, location in black label and time
         </p>
         <p>
-          If you use your current position <strong>(green button)</strong>, the
+          You may use your current position <span class="label label-success">(the green button)</span>, the
           app show you the direction to event <strong>(N, S, E, W)</strong>
         </p>
       </div>
@@ -32,27 +32,28 @@
         <table class="table table-condensed table-striped" id="event-table">
           <tbody>
             <% @events.each do |event| %>
-              <tr data-link="<%= event_url(event) %>">
+              <tr data-link="<%= event_url(event) %>" class="<%= has_started_class(event.start_date) %>">
                 <td>
                   <h4><%= event.name %></h4>
                   <strong>
                     <i class="icon-location"></i> <%= event.place.name %>
                   </strong> <br>
-                  <span>
+                  <p>
                     <i class="icon-calendar"></i>
-                    <%= get_event_time(event.start_date) ? get_event_time(event.start_date) : get_event_date(event.start_date) %>
-                  </span>
+                    Start <%= get_event_time event.start_date %> and
+                    End <%= get_event_time event.end_date %>
+                  </p>
                 </td>
                 <% if @useCurrentPosition %>
-                  <td class="location-distance"><%= place_distance(event) %></td>
+                  <td class="location-distance"><%= place_distance event.get_distance(@location) %></td>
                   <td class="arrow-direction">
-                    <i class="<%= place_direction_class event.bearing %>"></i>
+                    <i class="<%= place_direction_class event.get_bearings(@location) %>"></i>
                   </td>
                 <% end %>
                 <% if current_admin %>
                   <td class="actions">
-                      <%= link_to 'Edit', edit_event_path(event), class: 'btn btn-default' %>
-                      <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %>
+                      <%= link_to 'Edit', edit_event_path(event), class: 'btn btn-primary' %>
+                      <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
                   </td>
                 <% end %>
               </tr>

@@ -3,7 +3,7 @@ module EventsHelper
     return nil if date.nil?
     return get_event_hour(date) if date.today?
     return time_ago_in_words(date) if DateTime.now + 24.hour <= date
-    nil
+    get_event_date(date)
   end
 
   def get_event_date(date)
@@ -18,18 +18,24 @@ module EventsHelper
     "today at #{get_hour(time)}"
   end
 
-  def place_distance(event)
-    distance = number_to_human(event.distance, units: {centi: "m", unit: "km", thousand: "km"})
+  def place_distance(bearing)
+    distance = number_to_human(bearing, units: {centi: "m", unit: "km", thousand: "km"})
   end
 
   def place_direction(bearing)
-    Geocoder::Calculations.compass_point( bearing )
+    Geocoder::Calculations.compass_point( bearing - 180 )
   end
 
   def place_direction_class(bearing)
     case place_direction(bearing)
     when 'N'; 'icon-arrow-up'
     when 'S'; 'icon-arrow-down'
+    when 'W'; 'icon-arrow-left'
+    when 'E'; 'icon-arrow-right'
     end
+  end
+
+  def has_started_class(start_date)
+    'active' if start_date <= Time.now
   end
 end
