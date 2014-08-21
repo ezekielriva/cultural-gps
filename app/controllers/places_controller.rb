@@ -12,32 +12,27 @@ class PlacesController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @place = Place.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @place = Place.new(place_params)
-
     respond_to do |format|
       if @place.save
         format.html { redirect_to @place, notice: 'Place was successfully created.' }
         format.json { render action: 'show', status: :created, location: @place }
       else
         format.html { render action: 'new' }
-        format.json { render json: @place.errors, status: :unprocessable_entity }
+        format.json { render json: @place.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /places/1
-  # PATCH/PUT /places/1.json
   def update
     respond_to do |format|
       if @place.update(place_params)
@@ -50,8 +45,6 @@ class PlacesController < ApplicationController
     end
   end
 
-  # DELETE /places/1
-  # DELETE /places/1.json
   def destroy
     @place.destroy
     respond_to do |format|
@@ -61,12 +54,10 @@ class PlacesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_place
       @place = Place.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def place_params
       params.require(:place).permit(:name, :latitude, :longitude, :description)
     end
