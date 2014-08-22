@@ -1,34 +1,43 @@
-<%= form_for(@place) do |f| %>
-  <% if @place.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@place.errors.count, "error") %> prohibited this place from being saved:</h2>
+<%= form_for(place) do |f| %>
+  <div class="panel-body">
 
-      <ul>
-      <% @place.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+    <% if place.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(place.errors.count, "error") %> prohibited this place from being saved:</h2>
+
+        <ul>
+        <% place.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= f.hidden_field :latitude, "data-geo"=>"lat", class: 'form-control' %>
+    <%= f.hidden_field :longitude, "data-geo"=>"lng", class: 'form-control' %>
+
+    <div class="form-group">
+      <%= f.label :name %><br>
+      <%= f.text_field :name, class: 'form-control' %>
     </div>
-  <% end %>
+    <div class="form-group">
+      <%= f.label :location %><br>
+      <%= f.text_field :location, "data-geocomplete"=>"", class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :description %><br>
+      <%= f.text_area :description, class: 'form-control' %>
+    </div>
 
-  <%= f.hidden_field :latitude, "data-geo"=>"lat", class: 'form-control' %>
-  <%= f.hidden_field :longitude, "data-geo"=>"lng", class: 'form-control' %>
+    <div id="map-canvas"></div>
+  </div>
 
-  <div class="form-group">
-    <%= f.label :name %><br>
-    <%= f.text_field :name, class: 'form-control' %>
+  <div class="panel-footer">
+    <%= f.submit 'Create', class: 'btn btn-primary' %>
+
+    <% unless place.new_record? %>
+      <%= link_to 'Show', place, class: 'btn btn-default' %>
+      <%= link_to 'Back', events_path, class: 'btn btn-default' %>
+    <% end %>
   </div>
-  <div class="form-group">
-    <%= f.label :location %><br>
-    <%= f.text_field :location, "data-geocomplete"=>"", class: 'form-control' %>
-  </div>
-  <div class="form-group">
-    <%= f.label :description %><br>
-    <%= f.text_area :description, class: 'form-control' %>
-  </div>
-  <div class="from-group">
-    <%= f.submit class: 'btn btn-primary' %>
-  </div>
-  <br>
-  <div id="map-canvas"></div>
 <% end %>
