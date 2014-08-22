@@ -9,4 +9,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :decorators
 
+  decent_configuration do
+    strategy DecentExposure::StrongParametersStrategy
+  end
+
 end

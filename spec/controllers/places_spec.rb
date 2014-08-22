@@ -8,13 +8,18 @@ describe PlacesController do
 
   describe "GET #index" do
     before do
-      @places = create_list :place, 10
+      @places = create_list :place, 2
       get :index
     end
 
     it { expect( response.status ).to eq 200 }
-    it { expect( assigns(:places) ).to eq @places }
-    it { expect( assigns(:places).count ).to eql 10 }
+    it { expect( controller.places ).to eq @places }
+    it { expect( controller.places.count ).to eql 2 }
+  end
+
+  describe "GET #new" do
+    before { get :new }
+    it { expect( controller.place.new_record? ).to be_true }
   end
 
   describe "POST #create" do
