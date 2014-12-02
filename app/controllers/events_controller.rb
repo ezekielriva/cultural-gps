@@ -2,10 +2,14 @@ class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_admin!, :except => [:index, :show]
 
+  expose(:events)
+  expose(:future_events, model: :event) { events.get_future_events }
+  expose(:event)
+  expose(:geo_location) { [ params[:latitude], params[:longitude] ] }
+
   def index
+    future_events.includes(:place).limit(30)
     @useCurrentPosition = params[:useCurrentPosition] || false
-    @events = Event.get_future_events.includes(:place).limit(30)
-    @location = [params[:latitude], params[:longitude]]
   end
 
   def show; end

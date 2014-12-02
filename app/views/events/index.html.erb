@@ -28,10 +28,10 @@
           app show you the direction to event <strong>(N, S, E, W)</strong>
         </p>
       </div>
-      <% if @events.any? %>
+      <% if future_events.any? %>
         <table class="table table-condensed table-striped" id="event-table">
           <tbody>
-            <% @events.each do |event| %>
+            <% future_events.each do |event| %>
               <tr data-link="<%= event_url(event) %>" class="<%= has_started_class(event.start_date) %>">
                 <td>
                   <h4><%= event.name %></h4>
@@ -45,9 +45,9 @@
                   </p>
                 </td>
                 <% if @useCurrentPosition %>
-                  <td class="location-distance"><%= normalize_distance event.get_distance(@location) %></td>
+                  <td class="location-distance"><%= normalize_distance event.get_distance(geo_location) %></td>
                   <td class="arrow-direction">
-                    <i class="<%= place_direction_class event.get_bearings(@location) %>"></i>
+                    <i class="<%= place_direction_class event.get_bearings(geo_location) %>"></i>
                   </td>
                 <% end %>
                 <% if current_admin %>

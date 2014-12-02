@@ -18,7 +18,7 @@ describe Event do
   describe "Future events" do
     before do
       create_list :events_starts_today, 5
-      @old = create :event, start_date: Date.new(1900,1,1)
+      @old = create :event, start_date: Date.new(1900,1,1), end_date: Date.new(1900,1,1)
       @events = Event.get_future_events
     end
 
